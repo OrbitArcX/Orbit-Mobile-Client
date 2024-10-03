@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lighter_gray">#D3D3D3</color>
+    <color name="selector_bottom_navigation">#FF3700B3</color>
 
 </resources>
