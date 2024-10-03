@@ -1,80 +1,149 @@
 package com.example.orbitmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
+import android.view.View;
+import android.widget.ImageButton;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.orbitmobile.adapters.CategoryAdapter;
+import com.example.orbitmobile.adapters.ProductAdapter;
 import com.example.orbitmobile.api.ProductApi;
+import com.example.orbitmobile.models.Category;
 import com.example.orbitmobile.models.Product;
 import com.example.orbitmobile.network.ApiClient;
-
-import java.util.List;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
-    private ProductApi productApi; // for testing remove later
+    private RecyclerView recyclerViewCategories;
+    private RecyclerView recyclerViewTopSelling;
+    private RecyclerView recyclerViewNewIn;
+    private CategoryAdapter categoryAdapter;
+    private ProductAdapter topSellingAdapter;
+    private ProductAdapter newInAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
+        // Setting up RecyclerViews
+        recyclerViewCategories = findViewById(R.id.recycler_view_categories);
+        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        recyclerViewTopSelling = findViewById(R.id.recycler_view_top_selling);
+        recyclerViewTopSelling.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        // Initialize the API client
-        productApi = ApiClient.getRetrofitInstance().create(ProductApi.class);
+        recyclerViewNewIn = findViewById(R.id.recycler_view_new_in);
+        recyclerViewNewIn.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        // Fetch products from the backend
-        getProductsFromBackend();
+        // Load data from the API
+//        loadCategories();
+//        loadTopSelling();
+        loadNewIn();
+
+        // Set up cart button
+        ImageButton cartButton = findViewById(R.id.cart_button);
+        cartButton.setOnClickListener(v -> {
+            // Navigate to Cart Activity
+            startActivity(new Intent(HomeActivity.this, CartActivity.class));
+        });
+
+        // Set up profile picture button
+        findViewById(R.id.profile_picture).setOnClickListener(v -> {
+            // Navigate to Profile Activity
+            startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+        });
+
+        // Bottom Navigation setup
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setOnItemSelectedListener(item -> {
+//            switch (item.getItemId()) {
+//                case R.id.nav_home:
+//                    // Already in HomeActivity
+//                    return true;
+//                case R.id.nav_search:
+//                    startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+//                    return true;
+//                case R.id.nav_orders:
+//                    startActivity(new Intent(HomeActivity.this, OrdersActivity.class));
+//                    return true;
+//                case R.id.nav_profile:
+//                    startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+//                    return true;
+//                default:
+//                    return false;
+//            }
+//        });
     }
 
-
-    private void getProductsFromBackend() {
-            productApi.getProducts().enqueue(new Callback<List<Product>>() {
-                @Override
-                public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                    if (response.isSuccessful()) {
-                        List<Product> productList = response.body();
-                        Log.d("InIf", "Product list is null");
-
-                        // Log the product list for debugging
-                        if (productList != null) {
-                            for (Product product : productList) {
-                                Log.d("ProductList", "Product Name: " + product.getName() + ", Price: " + product.getPrice());
-                            }
-                        } else {
-                            Log.d("ProductList", "Product list is null");
-                        }
-
-                        // Handle the retrieved products (e.g., display them in a RecyclerView)
-                    } else {
-                        Toast.makeText(HomeActivity.this, "Failed to fetch products", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<Product>> call, Throwable t) {
-                    Toast.makeText(HomeActivity.this, "Error11: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-
-
-
-
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
+    // Method to load categories from the API
+//    private void loadCategories() {
+//        ProductApi productApi = ApiClient.getRetrofitInstance().create(ProductApi.class);
+//        productApi.getCategories().enqueue(new Callback<List<Category>>() {
+//            @Override
+//            public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<Category> categories = response.body();
+//                    categoryAdapter = new CategoryAdapter(categories, HomeActivity.this);
+//                    recyclerViewCategories.setAdapter(categoryAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable t) {
+//                // Handle failure (show error message or log)
+//            }
 //        });
+//    }
+
+    // Method to load top-selling products from the API
+//    private void loadTopSelling() {
+//        ProductApi productApi = ApiClient.getRetrofitInstance().create(ProductApi.class);
+//        productApi.getTopSellingProducts().enqueue(new Callback<List<Product>>() {
+//            @Override
+//            public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<Product> topSellingProducts = response.body();
+//                    topSellingAdapter = new ProductAdapter(topSellingProducts, HomeActivity.this);
+//                    recyclerViewTopSelling.setAdapter(topSellingAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+//                // Handle failure (show error message or log)
+//            }
+//        });
+//    }
+
+    // Method to load new-in products from the API
+    private void loadNewIn() {
+        ProductApi productApi = ApiClient.getRetrofitInstance().create(ProductApi.class);
+        productApi.getProducts().enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Product> newInProducts = response.body();
+                    newInAdapter = new ProductAdapter(newInProducts, HomeActivity.this);
+                    recyclerViewNewIn.setAdapter(newInAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+                // Handle failure (show error message or log)
+            }
+        });
     }
 }
