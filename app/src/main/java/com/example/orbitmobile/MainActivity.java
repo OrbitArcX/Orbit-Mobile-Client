@@ -25,7 +25,7 @@ import com.example.orbitmobile.network.ApiClient;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-//    private ProductApi productApi; // for testing remove later
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,44 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        // Initialize the API client
-//        productApi = ApiClient.getRetrofitInstance().create(ProductApi.class);
-//
-//        // Fetch products from the backend
-//        getProductsFromBackend();
-//    }
-//
-//    private void getProductsFromBackend() {
-//        productApi.getProducts().enqueue(new Callback<List<Product>>() {
-//            @Override
-//            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-//                if (response.isSuccessful()) {
-//                    List<Product> productList = response.body();
-//                    Log.d("InIf", "Product list is null");
-//
-//                    // Log the product list for debugging
-//                    if (productList != null) {
-//                        for (Product product : productList) {
-//                            Log.d("ProductList", "Product Name: " + product.getName() + ", Price: " + product.getPrice());
-//                        }
-//                    } else {
-//                        Log.d("ProductList", "Product list is null");
-//                    }
-//
-//                    // Handle the retrieved products (e.g., display them in a RecyclerView)
-//                } else {
-//                    Toast.makeText(MainActivity.this, "Failed to fetch products", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Product>> call, Throwable t) {
-//                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
 
 
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
