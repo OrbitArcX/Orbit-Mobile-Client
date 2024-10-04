@@ -8,25 +8,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.orbitmobile.R;
 import com.example.orbitmobile.models.Category;
+
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     private List<Category> categoryList;
     private Context context;
+    private OnCategoryClickListener onCategoryClickListener;
+    private int layoutResource;  // Resource ID for layout
 
-    public CategoryAdapter(List<Category> categoryList, Context context) {
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category);
+    }
+
+    public CategoryAdapter(List<Category> categoryList, Context context, OnCategoryClickListener onCategoryClickListener, int layoutResource) {
         this.categoryList = categoryList;
         this.context = context;
+        this.onCategoryClickListener = onCategoryClickListener;
+        this.layoutResource = layoutResource;  // Pass layout resource
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);  // Inflate the correct layout
         return new CategoryViewHolder(view);
     }
 
@@ -34,14 +44,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categoryList.get(position);
         holder.categoryName.setText(category.getName());
+        Glide.with(context).load(category.getImageUrl()).into(holder.categoryImage);  // Load image using Glide
 
-        // Check if imageUrl is not null, if null load a default image
-        if (category.getImageUrl() != null) {
-            Glide.with(context).load(category.getImageUrl()).into(holder.categoryImage);
-        } else {
-            // Load a placeholder image if imageUrl is null
-            holder.categoryImage.setImageResource(R.drawable.placeholder_image);  // Replace with your placeholder image
-        }
+        holder.itemView.setOnClickListener(v -> onCategoryClickListener.onCategoryClick(category));
     }
 
     @Override

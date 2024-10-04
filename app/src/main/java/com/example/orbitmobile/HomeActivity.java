@@ -3,6 +3,8 @@ package com.example.orbitmobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +22,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private ProductAdapter topSellingAdapter;
     private ProductAdapter newInAdapter;
+    private List<Category> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,15 @@ public class HomeActivity extends AppCompatActivity {
 
         recyclerViewNewIn = findViewById(R.id.recycler_view_new_in);
         recyclerViewNewIn.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        // TextView for See All Categories
+        TextView seeAllCategories = findViewById(R.id.see_all_categories);
+        seeAllCategories.setOnClickListener(v -> {
+            // Navigate to ShopByCategoryActivity
+            Intent intent = new Intent(HomeActivity.this, ShopByCategoryActivity.class);
+            intent.putParcelableArrayListExtra("categories", new ArrayList<>(categories));
+            startActivity(intent);
+        });
 
         // Load data from the API
         loadCategories();
@@ -95,8 +106,16 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Category> categories = response.body();
-                    categoryAdapter = new CategoryAdapter(categories, HomeActivity.this);
+                    categories = response.body();
+
+                    // Pass the correct layout resource for HomeActivity (using category_item.xml)
+                    categoryAdapter = new CategoryAdapter(categories, HomeActivity.this, category -> {
+                        // Navigate to CategoryItemsActivity with the selected category
+                        Intent intent = new Intent(HomeActivity.this, CategoryItemsActivity.class);
+                        intent.putExtra("category", category); // Pass the selected category
+                        startActivity(intent);
+                    }, R.layout.category_item);  // Use category_item.xml for HomeActivity
+
                     recyclerViewCategories.setAdapter(categoryAdapter);
                 }
             }
@@ -138,7 +157,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
 
     // Method to load new-in products from the API
     private void loadProducts() {
