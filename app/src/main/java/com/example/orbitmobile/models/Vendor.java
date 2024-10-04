@@ -8,7 +8,8 @@ public class Vendor {
     private String role;
     private boolean status;
     private boolean approveStatus;
-    private int rating;
+    private double rating;
+    private int ratingCount;
     private String createdAt;
     private String updatedAt;
 
@@ -69,12 +70,20 @@ public class Vendor {
         this.approveStatus = approveStatus;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     public String getCreatedAt() {
@@ -93,4 +102,3 @@ public class Vendor {
         this.updatedAt = updatedAt;
     }
 }
-

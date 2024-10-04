@@ -4,6 +4,7 @@ public class Category {
     private String id;
     private String name;
     private boolean status;
+    private String imageUrl;
     private String createdAt;
     private String updatedAt;
 
@@ -30,6 +31,14 @@ public class Category {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getCreatedAt() {
