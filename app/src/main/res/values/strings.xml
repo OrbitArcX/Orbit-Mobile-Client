@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OrbitMobile</string>
     <string name="get_started">Get Started</string>
+    <string name="view_cart">View cart</string>
 </resources>

@@ -17,16 +17,16 @@ public interface ProductApi {
     @GET("products")
     Call<List<Product>> getProducts();
 
-    // Create a new product
-    @POST("products")
-    Call<Product> createProduct(@Body Product product);
-
-    // Update an existing product
-    @PUT("products/{id}")
-    Call<Product> updateProduct(@Path("id") int productId, @Body Product product);
-
-    // Delete a product
-    @DELETE("products/{id}")
-    Call<Void> deleteProduct(@Path("id") int productId);
+//    // Create a new product
+//    @POST("products")
+//    Call<Product> createProduct(@Body Product product);
+//
+//    // Update an existing product
+//    @PUT("products/{id}")
+//    Call<Product> updateProduct(@Path("id") int productId, @Body Product product);
+//
+//    // Delete a product
+//    @DELETE("products/{id}")
+//    Call<Void> deleteProduct(@Path("id") int productId);
 }
 
