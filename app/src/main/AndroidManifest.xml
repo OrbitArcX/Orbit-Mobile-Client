@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CategoryItemsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShopByCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrdersActivity"
             android:exported="false" />
         <activity
@@ -48,7 +54,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.DELETE;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ProductApi {
 
@@ -17,6 +18,21 @@ public interface ProductApi {
     @GET("products")
     Call<List<Product>> getProducts();
 
+    @GET("products/getby/category/{categoryId}")
+    Call<List<Product>> getProductsByCategory(@Path("categoryId") String categoryId);
+
+    @GET("products/search")
+    Call<List<Product>> searchProducts(
+            @Query("name") String name,
+            @Query("minPrice") Integer minPrice,
+            @Query("maxPrice") Integer maxPrice,
+            @Query("vendorId") String vendorId,
+            @Query("categoryId") String categoryId,
+            @Query("minRating") Integer minRating,
+            @Query("maxRating") Integer maxRating,
+            @Query("sortBy") String sortBy,
+            @Query("isAscending") Boolean isAscending
+    );
 //    // Create a new product
 //    @POST("products")
 //    Call<Product> createProduct(@Body Product product);

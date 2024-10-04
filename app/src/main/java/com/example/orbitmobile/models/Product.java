@@ -9,6 +9,7 @@ public class Product {
     private String imageUrl;
     private Category category;
     private Vendor vendor;
+    private String author;
     private String createdAt;
     private String updatedAt;
 
@@ -75,6 +76,14 @@ public class Product {
 
     public void setVendor(Vendor vendor) {
         this.vendor = vendor;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getCreatedAt() {
