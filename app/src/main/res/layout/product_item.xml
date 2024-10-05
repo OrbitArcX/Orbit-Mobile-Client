@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="@drawable/product_item_background">>
+    android:background="@drawable/product_item_background">
 
     <!-- Product Image -->
     <ImageView
@@ -43,5 +43,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="4dp"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

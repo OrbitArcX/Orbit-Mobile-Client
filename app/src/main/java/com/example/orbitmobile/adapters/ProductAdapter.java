@@ -1,6 +1,7 @@
 package com.example.orbitmobile.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.orbitmobile.ProductDetailsActivity;
 import com.example.orbitmobile.R;
 import com.example.orbitmobile.models.Product;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -37,6 +40,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getName());
         holder.productPrice.setText("$" + product.getPrice());
         Glide.with(context).load(product.getImageUrl()).into(holder.productImage);  // Use Glide to load images
+
+        // Set onClickListener to navigate to ProductDetailsActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailsActivity.class);
+            intent.putExtra("product", new Gson().toJson(product));  // Pass product data as a JSON string
+            context.startActivity(intent);
+        });
     }
 
     @Override
