@@ -4,6 +4,7 @@ public class LoginSuccessResponse {
     private String id;
     private String email;
     private String name;
+    private String password;  // Add this field for updating and deactivating
     private String role;
     private boolean status;
     private boolean approveStatus;
@@ -35,6 +36,14 @@ public class LoginSuccessResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {

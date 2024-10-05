@@ -7,6 +7,8 @@ import com.example.orbitmobile.models.LoginSuccessResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface UserApi {
     @POST("user/login")
@@ -14,4 +16,8 @@ public interface UserApi {
 
     @POST("user")
     Call<Void> createAccount(@Body CreateAccountRequest createAccountRequest);  // Send the request to create a new account
+
+    @PUT("user/{id}")
+    Call<Void> updateUser(@Path("id") String id, @Body LoginSuccessResponse user);
+
 }
