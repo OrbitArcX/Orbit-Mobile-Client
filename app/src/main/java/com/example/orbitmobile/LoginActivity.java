@@ -4,49 +4,104 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.orbitmobile.api.UserApi;
+import com.example.orbitmobile.models.LoginRequest;
+import com.example.orbitmobile.models.LoginSuccessResponse;
+import com.example.orbitmobile.network.ApiClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private EditText emailInput, passwordInput;
+    private TextView errorMessage;
+    private Button continueButton;
+    private TextView createAccountLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        TextView createAccountLink = findViewById(R.id.create_one);
-        Button loginButton = findViewById(R.id.continue_button);
+        // Initialize UI components
+        emailInput = findViewById(R.id.email_input);
+        passwordInput = findViewById(R.id.password_input);
+        errorMessage = findViewById(R.id.error_message);
+        continueButton = findViewById(R.id.continue_button);
+        createAccountLink = findViewById(R.id.create_one);
 
+        // Sign-in button click listener
+        continueButton.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
 
-        createAccountLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
-                startActivity(intent);
+            if (email.isEmpty() || password.isEmpty()) {
+                errorMessage.setText("Please fill in both fields");
+                errorMessage.setVisibility(View.VISIBLE);
+            } else {
+                signInUser(email, password);
             }
         });
-        loginButton.setOnClickListener(new View.OnClickListener() {
+
+        // Create account link listener
+        createAccountLink.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    // Sign-in API call
+    private void signInUser(String email, String password) {
+        UserApi userApi = ApiClient.getRetrofitInstance().create(UserApi.class);
+
+        // Create login request with email and password
+        LoginRequest loginRequest = new LoginRequest(email, password);
+
+        // Send login request
+        userApi.login(loginRequest).enqueue(new Callback<LoginSuccessResponse>() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
+            public void onResponse(Call<LoginSuccessResponse> call, Response<LoginSuccessResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Successful login, process response
+                    LoginSuccessResponse loginResponse = response.body();
+                    saveCustomerId(loginResponse.getId());  // Save user ID to session
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Handle 404 (Not Found) and 400 (Bad Request) errors
+                    if (response.code() == 404) {
+                        errorMessage.setText("User not found. Please check your email.");
+                    } else if (response.code() == 400) {
+                        errorMessage.setText("Incorrect password or account not approved.");
+                    } else {
+                        errorMessage.setText("Login failed. Please try again.");
+                    }
+                    errorMessage.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginSuccessResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Network error. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-
-
-
-
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+    // Save customer ID to shared preferences
+    private void saveCustomerId(String customerId) {
+        getSharedPreferences("OrbitPrefs", MODE_PRIVATE)
+                .edit()
+                .putString("customerId", customerId)
+                .apply();
     }
 }
