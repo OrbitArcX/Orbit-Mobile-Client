@@ -1,6 +1,7 @@
 package com.example.orbitmobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.example.orbitmobile.api.UserApi;
 import com.example.orbitmobile.models.LoginRequest;
 import com.example.orbitmobile.models.LoginSuccessResponse;
 import com.example.orbitmobile.network.ApiClient;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView errorMessage;
     private Button continueButton;
     private TextView createAccountLink;
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Successful login, process response
                     LoginSuccessResponse loginResponse = response.body();
-                    saveCustomerId(loginResponse.getId());  // Save user ID to session
+                    saveUserObject(loginResponse);  // Save the entire user object
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
@@ -97,11 +100,30 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Save customer ID to shared preferences
-    private void saveCustomerId(String customerId) {
-        getSharedPreferences("OrbitPrefs", MODE_PRIVATE)
-                .edit()
-                .putString("customerId", customerId)
-                .apply();
+    // Save the entire user object to SharedPreferences
+    private void saveUserObject(LoginSuccessResponse loginResponse) {
+        SharedPreferences sharedPreferences = getSharedPreferences("OrbitPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Convert the loginResponse object to a JSON string
+        String userJson = gson.toJson(loginResponse);
+
+        // Save the JSON string in SharedPreferences
+        editor.putString("userObject", userJson);
+        editor.apply();
+    }
+
+    // Method to retrieve the saved user object from SharedPreferences
+    private LoginSuccessResponse getUserObject() {
+        SharedPreferences sharedPreferences = getSharedPreferences("OrbitPrefs", MODE_PRIVATE);
+
+        // Get the JSON string from SharedPreferences
+        String userJson = sharedPreferences.getString("userObject", null);
+
+        // Convert the JSON string back to a LoginSuccessResponse object
+        if (userJson != null) {
+            return gson.fromJson(userJson, LoginSuccessResponse.class);
+        }
+        return null;
     }
 }
