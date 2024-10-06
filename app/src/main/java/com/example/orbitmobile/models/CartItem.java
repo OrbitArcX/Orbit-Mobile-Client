@@ -1,6 +1,7 @@
 package com.example.orbitmobile.models;
 
 public class CartItem {
+    private String id;
     private Product product;
     private int quantity;
     private double totalPrice;
@@ -12,6 +13,13 @@ public class CartItem {
     }
 
     // Getters and setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public Product getProduct() {
         return product;
     }
