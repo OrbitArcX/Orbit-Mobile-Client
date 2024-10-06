@@ -14,10 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.orbitmobile.api.CartApi;
-import com.example.orbitmobile.models.CartRequest;
+import com.example.orbitmobile.models.Cart;
 import com.example.orbitmobile.models.CartItem;
-import com.example.orbitmobile.models.Product;
+import com.example.orbitmobile.models.CartRequest;
 import com.example.orbitmobile.models.LoginSuccessResponse;
+import com.example.orbitmobile.models.Product;
 import com.example.orbitmobile.network.ApiClient;
 import com.google.gson.Gson;
 
@@ -38,6 +39,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private Product product;
     private LoginSuccessResponse customer;
     private ImageView backButton;
+    private Cart existingCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         increaseQuantityButton = findViewById(R.id.increase_quantity);
         decreaseQuantityButton = findViewById(R.id.decrease_quantity);
         addToCartButton = findViewById(R.id.add_to_cart_button);
-
         backButton = findViewById(R.id.back_button);
 
         // Back button listener
@@ -77,7 +78,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Set vendor details (vendor has no image, only name and reviews)
         vendorName.setText(product.getVendor().getName());
         vendorReviews.setText(product.getVendor().getEmail());  // Using vendor email for demo
-        // No vendor image available, so you can set a default placeholder or omit it
 
         // Set quantity adjustment functionality
         quantityText.setText(String.valueOf(quantity));
@@ -85,7 +85,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         decreaseQuantityButton.setOnClickListener(v -> adjustQuantity(-1));
 
         // Handle "Add to Cart" button
-        addToCartButton.setOnClickListener(v -> addToCart());
+        addToCartButton.setOnClickListener(v -> checkAndAddToCart());
 
         // Handle vendor click to go to vendor reviews
         vendorName.setOnClickListener(v -> {
@@ -101,8 +101,33 @@ public class ProductDetailsActivity extends AppCompatActivity {
         quantityText.setText(String.valueOf(quantity));
     }
 
-    // Add product to cart
-    private void addToCart() {
+    // Add product to cart (check if cart exists first)
+    private void checkAndAddToCart() {
+        CartApi cartApi = ApiClient.getRetrofitInstance().create(CartApi.class);
+
+        // Check if the customer already has a cart
+        cartApi.getCartByCustomerId(customer.getId()).enqueue(new Callback<Cart>() {
+            @Override
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Cart exists, update the existing cart
+                    existingCart = response.body();
+                    updateExistingCart();
+                } else {
+                    // No cart exists, create a new cart
+                    createNewCart();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cart> call, Throwable t) {
+                Toast.makeText(ProductDetailsActivity.this, "Failed to check cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Create a new cart and add the product
+    private void createNewCart() {
         CartApi cartApi = ApiClient.getRetrofitInstance().create(CartApi.class);
 
         // Prepare cart item
@@ -110,23 +135,49 @@ public class ProductDetailsActivity extends AppCompatActivity {
         List<CartItem> cartItems = new ArrayList<>();
         cartItems.add(cartItem);
 
-        // Create cart request (using LoginSuccessResponse for the customer object)
+        // Create cart request
         CartRequest cartRequest = new CartRequest(customer, product.getPrice() * quantity, "Negombo", cartItems);
 
-        // Make API call to add the product to the cart
+        // Make API call to create a new cart
         cartApi.addToCart(cartRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Show success message and popup dialog
                     showAddToCartSuccessPopup();
                 } else {
-                    Toast.makeText(ProductDetailsActivity.this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailsActivity.this, "Failed to create cart", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(ProductDetailsActivity.this, "Network error. Try again later.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Update the existing cart
+    private void updateExistingCart() {
+        CartApi cartApi = ApiClient.getRetrofitInstance().create(CartApi.class);
+
+        // Add the new product to the existing cart items
+        CartItem newItem = new CartItem(product, quantity, product.getPrice() * quantity);
+        existingCart.getCartItems().add(newItem);
+        existingCart.setCartPrice(existingCart.getCartPrice() + newItem.getTotalPrice());
+
+        // Make API call to update the cart
+        cartApi.updateCart(existingCart.getId(), existingCart).enqueue(new Callback<Cart>() {
+            @Override
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
+                if (response.isSuccessful()) {
+                    showAddToCartSuccessPopup();
+                } else {
+                    Toast.makeText(ProductDetailsActivity.this, "Failed to update cart", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cart> call, Throwable t) {
                 Toast.makeText(ProductDetailsActivity.this, "Network error. Try again later.", Toast.LENGTH_SHORT).show();
             }
         });
