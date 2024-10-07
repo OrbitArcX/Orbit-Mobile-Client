@@ -19,6 +19,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     //private Button ;
     private Order order;
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         // Retrieve the order data from intent
         String orderJson = getIntent().getStringExtra("order");
         order = new Gson().fromJson(orderJson, Order.class);
+
+        backButton = findViewById(R.id.back_button);
+        // Back button listener
+        backButton.setOnClickListener(v -> finish());
 
         // Set order status and icons visibility based on status
         if (order.getStatus().equalsIgnoreCase("Cancelled")) {

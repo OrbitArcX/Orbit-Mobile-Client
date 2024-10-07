@@ -9,6 +9,7 @@ public class ApiClient {
     private static final String BASE_URL = "http://10.0.2.2:5034/api/";
     private static Retrofit retrofit;
 
+    // Reference :
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
