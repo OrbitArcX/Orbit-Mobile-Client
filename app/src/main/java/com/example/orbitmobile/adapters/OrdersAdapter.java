@@ -45,7 +45,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         // Click listener for individual orders
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderDetailsActivity.class);
-            intent.putExtra("order", new Gson().toJson(order)); // Pass the order object as JSON
+            intent.putExtra("order", new Gson().toJson(order)); // Passing the order object as JSON
             context.startActivity(intent);
         });
     }

@@ -94,12 +94,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         listener.onCartUpdated(0);  // Reset the prices
     }
 
-    // Listener to update the prices in CartActivity
     public interface OnCartItemUpdatedListener {
         void onCartUpdated(double newSubtotal);
     }
 
-    // Getter to access updated cart items in CartActivity
     public List<CartItem> getCartItemList() {
         return cartItemList;
     }
