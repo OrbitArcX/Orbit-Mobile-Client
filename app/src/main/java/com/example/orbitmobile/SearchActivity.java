@@ -43,21 +43,18 @@ public class SearchActivity extends AppCompatActivity implements SortOptionsDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         searchInput = findViewById(R.id.search_input);
         recyclerViewSearchResults = findViewById(R.id.recycler_view_search_results);
         noResultsLayout = findViewById(R.id.no_results_layout);
         sortButton = findViewById(R.id.sort_button);
-
         recyclerViewSearchResults.setLayoutManager(new GridLayoutManager(this, 2));
-
         ImageView backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> finish());
 
-        // Handle sorting button click to show sort options
+        // Handle sorting button click
         sortButton.setOnClickListener(v -> showSortOptions());
 
-        // Trigger search when user clicks the search button on the keyboard
+        // Trigger search when clicks the search button on the keyboard
         searchInput.setOnEditorActionListener((v, actionId, event) -> {
             currentQuery = searchInput.getText().toString().trim();
             if (!currentQuery.isEmpty()) {
@@ -68,18 +65,16 @@ public class SearchActivity extends AppCompatActivity implements SortOptionsDial
             return false;
         });
 
-        // Set up bottom navigation
+        // bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         bottomNavigationView.setSelectedItemId(R.id.nav_search);  // this line is to highlight the search icon
-
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     startActivity(new Intent(SearchActivity.this, HomeActivity.class));
                     break;
                 case R.id.nav_search:
-                    // Already in SearchActivity, no action needed
+                    // Already in Search
                     break;
                 case R.id.nav_orders:
                     startActivity(new Intent(SearchActivity.this, OrdersActivity.class));
@@ -144,7 +139,7 @@ public class SearchActivity extends AppCompatActivity implements SortOptionsDial
         });
     }
 
-    // Show sorting options dialog
+    // Show sorting dialog
     private void showSortOptions() {
         SortOptionsDialogFragment dialogFragment = new SortOptionsDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), "SortOptionsDialog");

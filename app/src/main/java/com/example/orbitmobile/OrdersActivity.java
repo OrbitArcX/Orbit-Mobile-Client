@@ -30,14 +30,12 @@ public class OrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
-        // Initialize RecyclerView
         ordersRecyclerView = findViewById(R.id.orders_recycler_view);
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Load orders from API
         loadOrders();
 
-        // Bottom Navigation setup
+        // Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_orders);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -66,8 +64,6 @@ public class OrdersActivity extends AppCompatActivity {
                 .getString("userObject", null);
         LoginSuccessResponse user = new Gson().fromJson(userJson, LoginSuccessResponse.class);
         String customerId = user.getId();
-
-        // Call the API to get customer orders
         OrderApi orderApi = ApiClient.getRetrofitInstance().create(OrderApi.class);
         orderApi.getOrdersByCustomerId(customerId).enqueue(new Callback<List<Order>>() {
             @Override
@@ -75,10 +71,8 @@ public class OrdersActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Order> orders = response.body();
                     if (orders.isEmpty()) {
-                        // Show "No Orders" layout
                         setContentView(R.layout.activity_orders_empty);
                     } else {
-                        // Load orders into the RecyclerView
                         ordersAdapter = new OrdersAdapter(orders, OrdersActivity.this);
                         ordersRecyclerView.setAdapter(ordersAdapter);
                     }
@@ -86,7 +80,6 @@ public class OrdersActivity extends AppCompatActivity {
                     Toast.makeText(OrdersActivity.this, "Failed to load orders", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<List<Order>> call, @NonNull Throwable t) {
                 Toast.makeText(OrdersActivity.this, "Network error. Try again later.", Toast.LENGTH_SHORT).show();
@@ -94,7 +87,6 @@ public class OrdersActivity extends AppCompatActivity {
         });
     }
 
-    // When order is clicked, navigate to the order details activity
     public void onOrderClick(Order order) {
         Intent intent = new Intent(this, OrderDetailsActivity.class);
         intent.putExtra("order", new Gson().toJson(order));

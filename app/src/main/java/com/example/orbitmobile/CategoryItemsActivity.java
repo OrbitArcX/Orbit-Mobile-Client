@@ -32,19 +32,15 @@ public class CategoryItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_items);
-
         category = getIntent().getParcelableExtra("category");
-        categoryTitle = findViewById(R.id.category_items_title);  // Find the title TextView
-        backButton = findViewById(R.id.back_button);  // Find the back button
-
-        // Handle the back button click
+        categoryTitle = findViewById(R.id.category_items_title);
+        backButton = findViewById(R.id.back_button);
+        //back button
         backButton.setOnClickListener(v -> {
-            finish();  // Close the activity and return to the previous screen
+            finish();
         });
-
         recyclerViewProducts = findViewById(R.id.recycler_view_products);
         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
-
         loadProductsByCategory(category);
     }
 
@@ -55,12 +51,8 @@ public class CategoryItemsActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Product> products = response.body();
-
-                    // Dynamically update the title with category name and product count
                     String titleText = category.getName() + " (" + products.size() + ")";
-                    categoryTitle.setText(titleText);  // Update the TextView
-
-                    // Set up the product adapter with the fetched products
+                    categoryTitle.setText(titleText);
                     productAdapter = new ProductAdapter(products, CategoryItemsActivity.this);
                     recyclerViewProducts.setAdapter(productAdapter);
                 }

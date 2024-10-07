@@ -24,26 +24,20 @@ public class ShopByCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_by_category);
-
         recyclerViewCategories = findViewById(R.id.recycler_view_categories);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this));
-
-        backButton = findViewById(R.id.back_button);  // Find the back button
-
-        // Handle the back button click
+        backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
-            finish();  // Close the activity and return to the previous screen
+            finish();
         });
-        // Retrieve categories from intent
+        // get categories
         List<Category> categories = getIntent().getParcelableArrayListExtra("categories");
-
         if (categories != null) {
             categoryAdapter = new CategoryAdapter(categories, this, category -> {
-                // Navigate to CategoryItemsActivity with the selected category
                 Intent intent = new Intent(ShopByCategoryActivity.this, CategoryItemsActivity.class);
                 intent.putExtra("category", category);
                 startActivity(intent);
-            }, R.layout.shop_category_item);  // Pass the new layout resource
+            }, R.layout.shop_category_item);  // Pass the 2nd layout
             recyclerViewCategories.setAdapter(categoryAdapter);
         }
     }

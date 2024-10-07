@@ -34,12 +34,10 @@ public class OrderItemsActivity extends AppCompatActivity {
         // Back button listener
         backButton.setOnClickListener(v -> finish());
 
-        // Retrieve the order items from the intent
+        // get the order items from intent
         String orderItemsJson = getIntent().getStringExtra("orderItems");
         Type orderItemType = new TypeToken<List<OrderItem>>() {}.getType();
         orderItems = new Gson().fromJson(orderItemsJson, orderItemType);
-
-        // Set up the RecyclerView with the adapter
         OrderItemsAdapter orderItemsAdapter = new OrderItemsAdapter(orderItems, this);
         recyclerViewOrderItems.setAdapter(orderItemsAdapter);
     }
