@@ -8,7 +8,6 @@
     android:background="@drawable/product_item_background"
     android:padding="8dp">
 
-    <!-- Product Image -->
     <ImageView
         android:id="@+id/product_image"
         android:layout_width="80dp"
@@ -18,9 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- Product Name -->
-
-    <!-- Product Price -->
     <TextView
         android:id="@+id/product_name"
         android:layout_width="217dp"
@@ -45,9 +41,6 @@
         app:layout_constraintStart_toStartOf="@id/product_name"
         app:layout_constraintTop_toBottomOf="@id/product_name"/>
 
-    <!-- Total Product Price -->
-
-    <!-- Quantity Adjuster -->
     <TextView
         android:id="@+id/product_total_price"
         android:layout_width="wrap_content"
@@ -72,7 +65,6 @@
         app:layout_constraintEnd_toStartOf="@id/remove_button"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Decrease Quantity Button -->
         <ImageButton
             android:id="@+id/decrease_quantity"
             android:layout_width="32dp"
@@ -81,7 +73,6 @@
             android:src="@drawable/ic_remove"
             android:scaleType="fitCenter"/>
 
-        <!-- Quantity Text -->
         <TextView
             android:id="@+id/product_quantity"
             android:layout_width="wrap_content"
@@ -91,7 +82,6 @@
             android:layout_marginHorizontal="12dp"
             android:textStyle="bold"/>
 
-        <!-- Increase Quantity Button -->
         <ImageButton
             android:id="@+id/increase_quantity"
             android:layout_width="32dp"
@@ -101,7 +91,7 @@
             android:scaleType="fitCenter"/>
     </LinearLayout>
 
-    <!-- Remove Button -->
+
     <TextView
         android:id="@+id/remove_button"
         android:layout_width="wrap_content"

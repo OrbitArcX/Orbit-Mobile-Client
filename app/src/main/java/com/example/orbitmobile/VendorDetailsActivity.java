@@ -34,28 +34,21 @@ public class VendorDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_details);
 
-        // Initialize UI components
         vendorName = findViewById(R.id.vendor_name);
         vendorRating = findViewById(R.id.vendor_rating);
         recyclerViewReviews = findViewById(R.id.recycler_view_reviews);
 
         backButton = findViewById(R.id.back_button);
-
-        // Back button listener
+        // Back button
         backButton.setOnClickListener(v -> finish());
 
         // Get vendor data
         String vendorJson = getIntent().getStringExtra("vendor");
         Vendor vendor = new Gson().fromJson(vendorJson, Vendor.class);
 
-        // Set vendor details
         vendorName.setText(vendor.getName());
         vendorRating.setText(vendor.getRating() + "/10");
-
-        // Setup RecyclerView for reviews
         recyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
-
-        // Fetch vendor reviews from API
         fetchVendorReviews(vendor.getId());
     }
 

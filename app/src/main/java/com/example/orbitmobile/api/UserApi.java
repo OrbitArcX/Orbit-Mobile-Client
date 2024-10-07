@@ -11,6 +11,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UserApi {
+
+    // Reference : https://square.github.io/retrofit/
+
     @POST("user/login")
     Call<LoginSuccessResponse> login(@Body LoginRequest loginRequest);  // Use LoginSuccessResponse for 200 OK
 

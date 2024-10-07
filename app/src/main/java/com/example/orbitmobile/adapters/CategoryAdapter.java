@@ -15,12 +15,13 @@ import com.example.orbitmobile.models.Category;
 
 import java.util.List;
 
+//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     private List<Category> categoryList;
     private Context context;
     private OnCategoryClickListener onCategoryClickListener;
-    private int layoutResource;  // Resource ID for layout
+    private int layoutResource;
 
     public interface OnCategoryClickListener {
         void onCategoryClick(Category category);
@@ -30,13 +31,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.categoryList = categoryList;
         this.context = context;
         this.onCategoryClickListener = onCategoryClickListener;
-        this.layoutResource = layoutResource;  // Pass layout resource
+        this.layoutResource = layoutResource;  // Pass layout resource from 2 layouts
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);  // Inflate the correct layout
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);  // using the correct layout
         return new CategoryViewHolder(view);
     }
 
@@ -44,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categoryList.get(position);
         holder.categoryName.setText(category.getName());
-        Glide.with(context).load(category.getImageUrl()).into(holder.categoryImage);  // Load image using Glide
+        Glide.with(context).load(category.getImageUrl()).into(holder.categoryImage);
 
         holder.itemView.setOnClickListener(v -> onCategoryClickListener.onCategoryClick(category));
     }

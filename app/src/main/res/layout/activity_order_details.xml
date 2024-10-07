@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".OrderDetailsActivity">
 
-    <!-- Back Button -->
+
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="32dp"
@@ -19,7 +19,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp" />
 
-    <!-- Order ID -->
+
     <TextView
         android:id="@+id/order_id_text"
         android:layout_width="0dp"
@@ -33,7 +33,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center" />
 
-    <!-- Order Status Section -->
+
     <LinearLayout
         android:id="@+id/order_status_layout"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <!-- Order Canceled -->
+
         <LinearLayout
             android:id="@+id/order_cancelled_layout"
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Order Pending -->
+
         <LinearLayout
             android:id="@+id/order_pending_layout"
             android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Order Dispatched -->
+
         <LinearLayout
             android:id="@+id/order_dispatched_layout"
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Order Partial Delivered -->
+
         <LinearLayout
             android:id="@+id/order_partial_delivered_layout"
             android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Order Delivered -->
+
         <LinearLayout
             android:id="@+id/order_delivered_layout"
             android:layout_width="match_parent"
@@ -173,7 +173,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Order Items Section -->
     <LinearLayout
         android:id="@+id/order_items_section"
         android:layout_width="0dp"
@@ -212,7 +211,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Shipping Address Section -->
     <LinearLayout
         android:id="@+id/shipping_address_section"
         android:layout_width="0dp"

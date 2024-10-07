@@ -34,14 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize UI components
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
         errorMessage = findViewById(R.id.error_message);
         continueButton = findViewById(R.id.continue_button);
         createAccountLink = findViewById(R.id.create_one);
 
-        // Sign-in button click listener
+        // Sign-in button
         continueButton.setOnClickListener(v -> {
             String email = emailInput.getText().toString().trim();
             String password = passwordInput.getText().toString().trim();
@@ -54,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Create account link listener
+        // Create account
         createAccountLink.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
             startActivity(intent);
@@ -64,16 +63,11 @@ public class LoginActivity extends AppCompatActivity {
     // Sign-in API call
     private void signInUser(String email, String password) {
         UserApi userApi = ApiClient.getRetrofitInstance().create(UserApi.class);
-
-        // Create login request with email and password
         LoginRequest loginRequest = new LoginRequest(email, password);
-
-        // Send login request
         userApi.login(loginRequest).enqueue(new Callback<LoginSuccessResponse>() {
             @Override
             public void onResponse(Call<LoginSuccessResponse> call, Response<LoginSuccessResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Successful login, process response
                     LoginSuccessResponse loginResponse = response.body();
                     saveUserObject(loginResponse);  // Save the entire user object
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
@@ -105,21 +99,17 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("OrbitPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // Convert the loginResponse object to a JSON string
+        // Convert to a JSON
         String userJson = gson.toJson(loginResponse);
-
-        // Save the JSON string in SharedPreferences
+        // Save it in SharedPreferences
         editor.putString("userObject", userJson);
         editor.apply();
     }
 
-    // Method to retrieve the saved user object from SharedPreferences
+    // retrieve the saved user object from SharedPreferences
     private LoginSuccessResponse getUserObject() {
         SharedPreferences sharedPreferences = getSharedPreferences("OrbitPrefs", MODE_PRIVATE);
-
-        // Get the JSON string from SharedPreferences
         String userJson = sharedPreferences.getString("userObject", null);
-
         // Convert the JSON string back to a LoginSuccessResponse object
         if (userJson != null) {
             return gson.fromJson(userJson, LoginSuccessResponse.class);

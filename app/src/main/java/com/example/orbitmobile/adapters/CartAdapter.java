@@ -17,6 +17,7 @@ import com.example.orbitmobile.models.CartItem;
 
 import java.util.List;
 
+//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<CartItem> cartItemList;
@@ -48,7 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         // Load product image using Glide
         Glide.with(context).load(cartItem.getProduct().getImageUrl()).into(holder.productImage);
 
-        // Quantity change listeners
+        // listeners to get the quantity changes
         holder.increaseQuantity.setOnClickListener(v -> {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
             cartItem.setTotalPrice(cartItem.getProduct().getPrice() * cartItem.getQuantity());
@@ -65,7 +66,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
         });
 
-        // Remove button listener
+        //  listener for Remove button
         holder.removeButton.setOnClickListener(v -> {
             cartItemList.remove(position);
             notifyItemRemoved(position);
@@ -78,7 +79,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartItemList.size();
     }
 
-    // Method to calculate subtotal
+    // Method to calculate tot value
     private double calculateSubtotal() {
         double subtotal = 0;
         for (CartItem cartItem : cartItemList) {
@@ -87,19 +88,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return subtotal;
     }
 
-    // Clear cart items method
+    // Clear items in cart
     public void clearCart() {
         cartItemList.clear();
         notifyDataSetChanged();
         listener.onCartUpdated(0);  // Reset the prices
     }
 
-    // Listener to update the prices in CartActivity
     public interface OnCartItemUpdatedListener {
         void onCartUpdated(double newSubtotal);
     }
 
-    // Getter to access updated cart items in CartActivity
     public List<CartItem> getCartItemList() {
         return cartItemList;
     }

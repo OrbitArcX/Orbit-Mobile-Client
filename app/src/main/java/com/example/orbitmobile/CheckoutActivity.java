@@ -48,18 +48,12 @@ public class CheckoutActivity extends AppCompatActivity {
         shippingAddressInput = findViewById(R.id.shipping_address);
         placeOrderButton = findViewById(R.id.place_order_button);
 
-        // Retrieve cart and user details
         String userJson = getSharedPreferences("OrbitPrefs", MODE_PRIVATE)
                 .getString("userObject", null);
         customer = new Gson().fromJson(userJson, LoginSuccessResponse.class);
-
         String cartJson = getIntent().getStringExtra("cart");
         cart = new Gson().fromJson(cartJson, Cart.class);
-
-        // Set price details
         calculateAndSetPrices();
-
-        // Handle place order button
         placeOrderButton.setOnClickListener(v -> {
             String shippingAddress = shippingAddressInput.getText().toString().trim();
             if (shippingAddress.isEmpty()) {
@@ -70,7 +64,7 @@ public class CheckoutActivity extends AppCompatActivity {
         });
     }
 
-    // Method to calculate subtotal, shipping cost, and total, then set them in the TextViews
+    // calculate, then set them in the TextViews
     private void calculateAndSetPrices() {
         double subtotal = 0.0;
         List<CartItem> cartItems = cart.getCartItems();
@@ -78,25 +72,20 @@ public class CheckoutActivity extends AppCompatActivity {
             subtotal += item.getTotalPrice();
         }
         totalAmount = subtotal + shippingCost;
-
         subtotalText.setText(String.format("Rs.%.2f", subtotal));
         shippingCostText.setText(String.format("Rs.%.2f", shippingCost));
         totalText.setText(String.format("Rs.%.2f", totalAmount));
     }
 
-    // Place order method
+    // Place order
     private void placeOrder(String shippingAddress) {
         OrderApi orderApi = ApiClient.getRetrofitInstance().create(OrderApi.class);
-
-        // Prepare order request
         OrderRequest orderRequest = new OrderRequest(customer, cart.getCartItems(), totalAmount, shippingAddress);
-
-        // Call create order API
         orderApi.createOrder(orderRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // On successful order creation, delete the cart
+                    // if successful, delete the cart
                     deleteCart(cart.getId());
                 } else {
                     Toast.makeText(CheckoutActivity.this, "Failed to place order", Toast.LENGTH_SHORT).show();
@@ -110,21 +99,18 @@ public class CheckoutActivity extends AppCompatActivity {
         });
     }
 
-    // Method to delete the cart after order placement
+    //delete the cart after order placement
     private void deleteCart(String cartId) {
         CartApi cartApi = ApiClient.getRetrofitInstance().create(CartApi.class);
-
         cartApi.deleteCartById(cartId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Show order success dialog after cart is deleted
                     showOrderSuccessPopup();
                 } else {
                     Toast.makeText(CheckoutActivity.this, "Failed to delete cart", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(CheckoutActivity.this, "Network error. Please try again.", Toast.LENGTH_SHORT).show();
@@ -132,18 +118,15 @@ public class CheckoutActivity extends AppCompatActivity {
         });
     }
 
-    // Show a success dialog after the order is placed
+    // Show thre success dialog after the order is placed
     private void showOrderSuccessPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CheckoutActivity.this);
         View popupView = getLayoutInflater().inflate(R.layout.dialog_order_success, null);
-
         builder.setView(popupView);
         AlertDialog dialog = builder.create();
         dialog.show();
-
         Button seeOrderDetailsButton = popupView.findViewById(R.id.see_order_details_button);
         seeOrderDetailsButton.setOnClickListener(v -> {
-            // go to order list after success
             Intent intent = new Intent(CheckoutActivity.this, OrdersActivity.class);
             startActivity(intent);
             dialog.dismiss();

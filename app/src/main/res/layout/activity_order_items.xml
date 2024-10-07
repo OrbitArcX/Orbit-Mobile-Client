@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Back Button -->
+
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="32dp"
@@ -18,7 +18,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp" />
 
-    <!-- Title for the Order Items -->
+
     <TextView
         android:id="@+id/order_items_title"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"/>
 
-    <!-- RecyclerView to display Order Items -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_order_items"
         android:layout_width="0dp"

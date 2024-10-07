@@ -35,17 +35,16 @@ public class CartActivity extends AppCompatActivity {
     private Button checkoutButton;
     private CartAdapter cartAdapter;
     private double subtotal = 0;
-    private double shippingCost = 8.00;  // Example static shipping cost
+    private double shippingCost = 8.00;  // this cost is not from backend
     private double total = 0;
-    private Cart existingCart; // Cart object for updating
-    private String customerId; // To store the customer ID
+    private Cart existingCart;
+    private String customerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        // Initialize UI components
         backButton = findViewById(R.id.back_button);
         removeAll = findViewById(R.id.remove_all);
         subtotalText = findViewById(R.id.subtotal);
@@ -54,19 +53,18 @@ public class CartActivity extends AppCompatActivity {
         recyclerViewCart = findViewById(R.id.recycler_view_cart);
         checkoutButton = findViewById(R.id.checkout_button);
 
-        // Setup RecyclerView
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
 
         // Load cart items from API
         loadCartItems();
 
-        // Back button click event
+        // Back button
         backButton.setOnClickListener(v -> finish());
 
-        // Remove all cart items click event
+        // Remove all cart items
         removeAll.setOnClickListener(v -> clearCart());
 
-        // Checkout button click event
+        // Checkout button
         checkoutButton.setOnClickListener(v -> {
             if (subtotal > 0) {
                 updateCartBeforeCheckout();
@@ -78,18 +76,15 @@ public class CartActivity extends AppCompatActivity {
 
     private void loadCartItems() {
         CartApi cartApi = ApiClient.getRetrofitInstance().create(CartApi.class);
-
-        // Retrieve user object from SharedPreferences
         String userJson = getSharedPreferences("OrbitPrefs", MODE_PRIVATE)
                 .getString("userObject", null);
 
         if (userJson != null) {
-            // Parse the user object
             LoginSuccessResponse user = new Gson().fromJson(userJson, LoginSuccessResponse.class);
-            customerId = user.getId();  // Get the customer ID from the parsed object
+            customerId = user.getId();
+            // logging to check customerId
             Log.d("customerId from object", "Customer ID: " + customerId);
 
-            // Make API call using the correct customer ID
             cartApi.getCartByCustomerId(customerId).enqueue(new Callback<Cart>() {
                 @Override
                 public void onResponse(@NonNull Call<Cart> call, @NonNull Response<Cart> response) {
@@ -100,7 +95,7 @@ public class CartActivity extends AppCompatActivity {
                         recyclerViewCart.setAdapter(cartAdapter);
                         calculatePrices(cartItems);
                     } else {
-                        // Load empty cart layout if 404 or empty response
+                        // if 404 or empty response Load empty cart layout
                         setContentView(R.layout.activity_cart_empty);
                         initializeEmptyCartComponents();
                     }
@@ -109,7 +104,7 @@ public class CartActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<Cart> call, @NonNull Throwable t) {
                     Toast.makeText(CartActivity.this, "Failed to load cart items", Toast.LENGTH_SHORT).show();
-                    setContentView(R.layout.activity_cart_empty);  // Load empty cart layout on failure
+                    setContentView(R.layout.activity_cart_empty);
                     initializeEmptyCartComponents();
                 }
             });
@@ -120,7 +115,6 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    // Initialize empty cart components for the back button functionality
     private void initializeEmptyCartComponents() {
         backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> finish());
@@ -132,35 +126,31 @@ public class CartActivity extends AppCompatActivity {
             cartAdapter.clearCart();
             subtotal = 0;
             total = 0;
-            updatePrices(subtotal);  // Call updatePrices with one parameter
+            updatePrices(subtotal);
         }
     }
 
-    // Calculate subtotal, shipping cost, and total
+    // Calculate
     private void calculatePrices(List<CartItem> cartItems) {
         subtotal = 0;
         for (CartItem item : cartItems) {
-            subtotal += item.getTotalPrice();  // Sum up the prices
+            subtotal += item.getTotalPrice();
         }
         total = subtotal + shippingCost;
-        updatePrices(subtotal);  // Call updatePrices with one parameter
+        updatePrices(subtotal);
     }
 
-    // Update price labels (Now it takes just one parameter for subtotal)
     public void updatePrices(double newSubtotal) {
         subtotalText.setText(String.format("Rs.%.2f", newSubtotal));
         shippingCostText.setText(String.format("Rs.%.2f", shippingCost));  // Static shipping cost
         total = newSubtotal + shippingCost;
         totalText.setText(String.format("Rs.%.2f", total));
     }
-
-    // Update the cart before proceeding to checkout
+    // Update the cart before checkout
     private void updateCartBeforeCheckout() {
         if (existingCart != null) {
-            // Update the cart items and price before checkout
-            existingCart.setCartItems(cartAdapter.getCartItemList());  // Get the updated cart items from the adapter
+            existingCart.setCartItems(cartAdapter.getCartItemList());
             existingCart.setCartPrice(subtotal);
-
             CartApi cartApi = ApiClient.getRetrofitInstance().create(CartApi.class);
 
             // Make API call to update the cart
@@ -168,20 +158,15 @@ public class CartActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<Cart> call, @NonNull Response<Cart> response) {
                     if (response.isSuccessful()) {
-                        // Proceed to checkout activity
                         Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
-                        intent.putExtra("total", total);  // Pass total amount to CheckoutActivity
-
-                        // Pass the updated cart object
+                        intent.putExtra("total", total);
                         String cartJson = new Gson().toJson(existingCart);
                         intent.putExtra("cart", cartJson);
-
                         startActivity(intent);
                     } else {
                         Toast.makeText(CartActivity.this, "Failed to update cart", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(@NonNull Call<Cart> call, @NonNull Throwable t) {
                     Toast.makeText(CartActivity.this, "Network error. Try again later.", Toast.LENGTH_SHORT).show();

@@ -5,7 +5,7 @@ import java.util.List;
 public class Cart {
     private String id;
     private List<CartItem> cartItems;
-    private LoginSuccessResponse customer; // Assuming the customer is stored in LoginSuccessResponse
+    private LoginSuccessResponse customer; // customer obj
     private double cartPrice;
     private String address;
 

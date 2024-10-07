@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Customer Name -->
     <TextView
         android:id="@+id/customer_name"
         android:layout_width="wrap_content"
@@ -17,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Rating -->
     <TextView
         android:id="@+id/review_rating"
         android:layout_width="wrap_content"
@@ -26,7 +24,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Review Comment -->
     <TextView
         android:id="@+id/review_text"
         android:layout_width="0dp"

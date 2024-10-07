@@ -15,9 +15,7 @@ public class SortOptionsDialogFragment extends DialogFragment {
     public interface OnSortOptionSelectedListener {
         void onSortOptionSelected(String sortBy, boolean isAscending);
     }
-
     private OnSortOptionSelectedListener listener;
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -44,20 +42,18 @@ public class SortOptionsDialogFragment extends DialogFragment {
 
         // Set the dialog buttons
         builder.setNegativeButton("Clear", (dialog, which) -> {
-            // If the listener is not null, we clear the sorting option
             if (listener != null) {
-                listener.onSortOptionSelected("", true); // Reset sorting option
+                listener.onSortOptionSelected("", true);
             }
         });
 
         builder.setPositiveButton("Sort by", (dialog, which) -> {
-            // Determine which radio button is selected and pass it back to the listener
             if (sortGroup.getCheckedRadioButtonId() == ratingOption.getId()) {
-                listener.onSortOptionSelected("rating", false); // Sorting by rating
+                listener.onSortOptionSelected("rating", false);
             } else if (sortGroup.getCheckedRadioButtonId() == lowHighOption.getId()) {
-                listener.onSortOptionSelected("price", true); // Sort from lowest to highest price
+                listener.onSortOptionSelected("price", true); // lowest to highest price
             } else if (sortGroup.getCheckedRadioButtonId() == highLowOption.getId()) {
-                listener.onSortOptionSelected("price", false); // Sort from highest to lowest price
+                listener.onSortOptionSelected("price", false); // highest to lowest price
             }
         });
 

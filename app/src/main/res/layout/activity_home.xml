@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <!-- ScrollView to make the content scrollable -->
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
@@ -17,13 +16,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- LinearLayout as the single child of ScrollView -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Top Bar (Profile picture and Cart button) -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -70,7 +67,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Categories Section -->
             <TextView
                 android:id="@+id/categories_title"
                 android:layout_width="wrap_content"
@@ -90,7 +86,6 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"/>
 
-            <!-- Horizontal RecyclerView for Categories -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_categories"
                 android:layout_width="match_parent"
@@ -98,7 +93,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"/>
 
-            <!-- Top Selling Section -->
             <TextView
                 android:id="@+id/top_selling_title"
                 android:layout_width="wrap_content"
@@ -118,7 +112,6 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"/>
 
-            <!-- Horizontal RecyclerView for Top Selling -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_top_selling"
                 android:layout_width="match_parent"
@@ -126,7 +119,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"/>
 
-            <!-- New In Section -->
             <TextView
                 android:id="@+id/new_in_title"
                 android:layout_width="wrap_content"
@@ -146,7 +138,6 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"/>
 
-            <!-- Horizontal RecyclerView for New In -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_new_in"
                 android:layout_width="match_parent"

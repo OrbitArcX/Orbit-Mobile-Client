@@ -32,22 +32,20 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Initialize UI elements
         profileName = findViewById(R.id.profile_name);
         profileEmail = findViewById(R.id.profile_email);
         View updateNameContainer = findViewById(R.id.update_name_container);
         View deactivateAccountContainer = findViewById(R.id.deactivate_account_container);
         View signOutContainer = findViewById(R.id.sign_out_container);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        // Load user object from shared preferences
+        // Load user object
         user = getUserObject();
         if (user != null) {
             profileName.setText(user.getName());
             profileEmail.setText(user.getEmail());
         }
 
-        // Update Name functionality
+        // Update Name function
         updateNameContainer.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
             builder.setTitle("Update Name");
@@ -66,14 +64,11 @@ public class ProfileActivity extends AppCompatActivity {
             builder.setNegativeButton("Cancel", null);
             builder.show();
         });
-
-        // Deactivate Account functionality
+        // Deactivate Account function
         deactivateAccountContainer.setOnClickListener(v -> {
-            // Call the function to ask for the password and proceed with deactivation
             askForPasswordAndDeactivate(user);
         });
-
-        // Sign Out functionality with confirmation
+        // Sign Out
         signOutContainer.setOnClickListener(v -> {
             new AlertDialog.Builder(ProfileActivity.this)
                     .setTitle("Sign Out")
@@ -105,17 +100,16 @@ public class ProfileActivity extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.nav_profile:
-                    // Already in ProfileActivity
+                    // Already in Profile
                     break;
             }
             return true;
         });
-
-        // Highlight the Profile item in the navigation bar
+        // Highlight the Profile icon
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
     }
 
-    // Retrieve user object from shared preferences
+    // get user object
     private LoginSuccessResponse getUserObject() {
         SharedPreferences sharedPreferences = getSharedPreferences("OrbitPrefs", MODE_PRIVATE);
         String userJson = sharedPreferences.getString("userObject", null);
@@ -125,7 +119,7 @@ public class ProfileActivity extends AppCompatActivity {
         return null;
     }
 
-    // Save user object to shared preferences
+    // Save user object
     private void saveUserObject(LoginSuccessResponse user) {
         SharedPreferences sharedPreferences = getSharedPreferences("OrbitPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -133,14 +127,14 @@ public class ProfileActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    // Update user profile via API
+    // Update user profile
     private void updateUserProfile(LoginSuccessResponse user) {
         UserApi userApi = ApiClient.getRetrofitInstance().create(UserApi.class);
         userApi.updateUser(user.getId(), user).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    saveUserObject(user);  // Save updated user object
+                    saveUserObject(user);
                     Toast.makeText(ProfileActivity.this, "Profile updated successfully.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ProfileActivity.this, "Failed to update profile. Try again.", Toast.LENGTH_SHORT).show();
@@ -154,18 +148,16 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    // Deactivate account via API
+    // Deactivate account
     private void deactivateAccount(LoginSuccessResponse user) {
         UserApi userApi = ApiClient.getRetrofitInstance().create(UserApi.class);
-
-        // Set the status to false before making the API call
+        // Set the status to false
         user.setStatus(false);
-
         userApi.updateUser(user.getId(), user).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Clear user object and redirect to login page after deactivating
+                    // Clear user object and redirect to login page
                     getSharedPreferences("OrbitPrefs", MODE_PRIVATE).edit().remove("userObject").apply();
                     Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -174,36 +166,28 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(ProfileActivity.this, "Failed to deactivate account. Try again.", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Error deactivating account. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
     // Ask for password before deactivating the account
     private void askForPasswordAndDeactivate(LoginSuccessResponse user) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle("Enter Password to Deactivate");
-
-        // Custom layout for password input
         final View customLayout = getLayoutInflater().inflate(R.layout.dialog_password_input, null);
         builder.setView(customLayout);
-
         builder.setPositiveButton("Deactivate", (dialog, which) -> {
             TextView passwordInput = customLayout.findViewById(R.id.password_input);
             String enteredPassword = passwordInput.getText().toString().trim();
-
             if (!enteredPassword.isEmpty()) {
                 user.setPassword(enteredPassword);
-                deactivateAccount(user);  // Proceed with deactivation
+                deactivateAccount(user);
             } else {
                 Toast.makeText(ProfileActivity.this, "Password is required.", Toast.LENGTH_SHORT).show();
             }
         });
-
         builder.setNegativeButton("Cancel", null);
         builder.show();
     }

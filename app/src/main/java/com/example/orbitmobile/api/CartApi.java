@@ -13,6 +13,8 @@ import retrofit2.http.Path;
 
 public interface CartApi {
 
+    // Reference : https://square.github.io/retrofit/
+
     // POST request to create a cart and add items
     @POST("order/cart")
     Call<Void> addToCart(@Body CartRequest cartRequest);

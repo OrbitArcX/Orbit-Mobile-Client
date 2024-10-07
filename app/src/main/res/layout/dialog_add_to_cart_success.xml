@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Success Message -->
     <TextView
         android:id="@+id/success_message"
         android:layout_width="wrap_content"
@@ -19,7 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"/>
 
-    <!-- Go to Cart Button -->
     <Button
         android:id="@+id/go_to_cart_button"
         android:layout_width="0dp"

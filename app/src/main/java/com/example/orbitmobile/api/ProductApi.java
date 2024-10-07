@@ -14,6 +14,8 @@ import retrofit2.http.Query;
 
 public interface ProductApi {
 
+    // Reference : https://square.github.io/retrofit/
+
     // Get a list of products
     @GET("products")
     Call<List<Product>> getProducts();

@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="16dp" />
 
-    <!-- Empty Cart Image -->
     <ImageView
         android:id="@+id/empty_cart_image"
         android:layout_width="120dp"
@@ -30,7 +29,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="80dp" />
 
-    <!-- Empty Cart Text -->
     <TextView
         android:id="@+id/empty_cart_text"
         android:layout_width="wrap_content"
