@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetailsActivity">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_back"
+        android:contentDescription="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- Order ID -->
+    <TextView
+        android:id="@+id/order_id_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Order #123456"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+
+    <!-- Order Status Section -->
+    <LinearLayout
+        android:id="@+id/order_status_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/order_id_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <!-- Order Canceled -->
+        <LinearLayout
+            android:id="@+id/order_cancelled_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/order_cancelled_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Order Cancelled"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/order_cancelled_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_cancel_red"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Order Pending -->
+        <LinearLayout
+            android:id="@+id/order_pending_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/order_pending_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Order Pending"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/order_pending_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_check_green"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Order Dispatched -->
+        <LinearLayout
+            android:id="@+id/order_dispatched_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/order_dispatched_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Order Dispatched"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/order_dispatched_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_check_green"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Order Partial Delivered -->
+        <LinearLayout
+            android:id="@+id/order_partial_delivered_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/order_partial_delivered_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Order Partial Delivered"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/order_partial_delivered_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_check_green"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Order Delivered -->
+        <LinearLayout
+            android:id="@+id/order_delivered_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/order_delivered_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delivered"
+                android:textSize="16sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <ImageView
+                android:id="@+id/order_delivered_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_check_green"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Order Items Section -->
+    <LinearLayout
+        android:id="@+id/order_items_section"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/order_status_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:id="@+id/order_items_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Order Items"
+            android:src="@drawable/ic_cart" />
+
+        <TextView
+            android:id="@+id/order_items_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4 items"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp" />
+
+        <TextView
+            android:id="@+id/view_all_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View All"
+            android:textColor="@color/purple_500"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Shipping Address Section -->
+    <LinearLayout
+        android:id="@+id/shipping_address_section"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/order_items_section"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/shipping_address_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shipping Address"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/shipping_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2715 Ash Dr. San Jose, South Dakota 83475"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

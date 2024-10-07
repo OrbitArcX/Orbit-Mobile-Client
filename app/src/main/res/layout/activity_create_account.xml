@@ -33,47 +33,34 @@ android:background="@android:color/white">
         android:layout_marginTop="30dp"/>
 
     <EditText
-        android:id="@+id/firstname_input"
+        android:id="@+id/name_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Firstname"
-        android:padding="12dp"
-        android:background="@android:color/darker_gray"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@id/create_account_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
-        app:layout_constraintWidth_percent="0.85"/>
-
-    <EditText
-        android:id="@+id/lastname_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Lastname"
+        android:background="@color/lighter_gray"
+        android:hint="Name"
         android:padding="12dp"
-        android:background="@android:color/darker_gray"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@id/firstname_input"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp"
-        app:layout_constraintWidth_percent="0.85"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_account_title"
+        app:layout_constraintWidth_percent="0.85" />
 
     <EditText
         android:id="@+id/email_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/lighter_gray"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:background="@android:color/darker_gray"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@id/lastname_input"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp"
-        app:layout_constraintWidth_percent="0.85"/>
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_input"
+        app:layout_constraintWidth_percent="0.85" />
 
     <EditText
         android:id="@+id/password_input"
@@ -82,7 +69,7 @@ android:background="@android:color/white">
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="12dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/lighter_gray"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/email_input"
         app:layout_constraintStart_toStartOf="parent"

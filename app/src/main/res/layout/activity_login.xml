@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <!-- Sign-in Title -->
     <TextView
         android:id="@+id/sign_in_title"
         android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Email Input -->
     <EditText
         android:id="@+id/email_input"
         android:layout_width="0dp"
@@ -35,6 +37,7 @@
         app:layout_constraintTop_toBottomOf="@id/sign_in_title"
         app:layout_constraintWidth_percent="0.8" />
 
+    <!-- Password Input -->
     <EditText
         android:id="@+id/password_input"
         android:layout_width="0dp"
@@ -50,6 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/email_input"
         app:layout_constraintWidth_percent="0.8" />
 
+    <!-- Continue Button -->
     <Button
         android:id="@+id/continue_button"
         android:layout_width="0dp"
@@ -63,6 +67,19 @@
         app:layout_constraintTop_toBottomOf="@id/password_input"
         app:layout_constraintWidth_percent="0.8" />
 
+    <!-- Error Message (Initially hidden) -->
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/continue_button" />
+
+    <!-- Create Account Link -->
     <TextView
         android:id="@+id/create_account_link"
         android:layout_width="wrap_content"
@@ -73,7 +90,7 @@
         app:layout_constraintEnd_toStartOf="@+id/create_one"
         app:layout_constraintHorizontal_bias="0.915"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/continue_button" />
+        app:layout_constraintTop_toBottomOf="@id/error_message" />
 
     <TextView
         android:id="@+id/create_one"
@@ -83,7 +100,8 @@
         android:layout_marginEnd="76dp"
         android:text="Create One"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/continue_button" />
+        app:layout_constraintTop_toBottomOf="@id/error_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
