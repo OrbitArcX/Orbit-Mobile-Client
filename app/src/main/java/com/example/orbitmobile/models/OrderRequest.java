@@ -4,7 +4,7 @@ import java.util.List;
 
 public class OrderRequest {
 
-    private LoginSuccessResponse customer;  // This is the customer object
+    private LoginSuccessResponse customer;  // customer obj
     private List<CartItem> cartItems;
     private double totalPrice;
     private String address;

@@ -10,7 +10,6 @@ public class OrderItem {
     private String createdAt;
     private String updatedAt;
 
-    // Getters and Setters
     public String getId() {
         return id;
     }

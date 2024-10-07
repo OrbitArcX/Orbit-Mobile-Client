@@ -1,10 +1,11 @@
 package com.example.orbitmobile.models;
 
+// the logged in user obj is saved in here
 public class LoginSuccessResponse {
     private String id;
     private String email;
     private String name;
-    private String password;  // Add this field for updating and deactivating
+    private String password;
     private String role;
     private boolean status;
     private boolean approveStatus;

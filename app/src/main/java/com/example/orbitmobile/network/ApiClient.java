@@ -9,7 +9,7 @@ public class ApiClient {
     private static final String BASE_URL = "http://10.0.2.2:5034/api/";
     private static Retrofit retrofit;
 
-    // Reference :
+    // Reference : https://www.digitalocean.com/community/tutorials/retrofit-android-example-tutorial
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

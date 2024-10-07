@@ -5,7 +5,7 @@ import java.util.List;
 public class Order {
     private String id;
     private List<OrderItem> orderItems;
-    private LoginSuccessResponse customer;  // Use LoginSuccessResponse for customer data
+    private LoginSuccessResponse customer;  // customer obj
     private double orderPrice;
     private boolean cancelRequest;
     private String cancelReason;

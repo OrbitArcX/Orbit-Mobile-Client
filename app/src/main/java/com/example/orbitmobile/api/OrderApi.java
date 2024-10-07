@@ -13,6 +13,8 @@ import retrofit2.http.Path;
 
 public interface OrderApi {
 
+    // Reference : https://square.github.io/retrofit/
+
     // Create a new order
     @POST("order")
     Call<Void> createOrder(@Body OrderRequest orderRequest);

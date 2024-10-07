@@ -10,6 +10,8 @@ import retrofit2.http.Path;
 
 public interface VendorApi {
 
+    // Reference : https://square.github.io/retrofit/
+    // get ratings by id
     @GET("rating/vendor/{vendorId}")
     Call<List<Review>> getVendorReviews(@Path("vendorId") String vendorId);
 }
