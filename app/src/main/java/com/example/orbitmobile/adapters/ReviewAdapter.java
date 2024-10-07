@@ -12,6 +12,7 @@ import com.example.orbitmobile.models.Review;
 
 import java.util.List;
 
+//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
     private List<Review> reviews;

@@ -16,6 +16,7 @@ import com.example.orbitmobile.models.OrderItem;
 
 import java.util.List;
 
+//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.OrderItemViewHolder> {
 
     private List<OrderItem> orderItems;

@@ -15,6 +15,7 @@ import com.example.orbitmobile.models.Category;
 
 import java.util.List;
 
+//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     private List<Category> categoryList;

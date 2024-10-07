@@ -17,6 +17,7 @@ import com.example.orbitmobile.models.CartItem;
 
 import java.util.List;
 
+//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<CartItem> cartItemList;
