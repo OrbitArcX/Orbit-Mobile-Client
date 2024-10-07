@@ -7,7 +7,6 @@
     android:background="@android:color/white"
     android:padding="24dp">
 
-    <!-- Success Image -->
     <ImageView
         android:id="@+id/success_image"
         android:layout_width="106dp"
@@ -19,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Order Placed Text -->
     <TextView
         android:id="@+id/order_success_message"
         android:layout_width="wrap_content"
@@ -34,7 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- Subtext for Confirmation -->
     <TextView
         android:id="@+id/order_confirmation_message"
         android:layout_width="wrap_content"
@@ -48,7 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- See Order Details Button -->
     <Button
         android:id="@+id/see_order_details_button"
         android:layout_width="0dp"

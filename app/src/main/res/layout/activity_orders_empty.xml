@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Title: Orders -->
+
     <TextView
         android:id="@+id/orders_title"
         android:layout_width="wrap_content"
@@ -19,11 +19,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        android:layout_marginTop="16dp" /> <!-- Correct margin -->
+        android:layout_marginTop="16dp" />
 
-    <!-- Image of an empty cart -->
 
-    <!-- Empty Orders Message -->
+
+
     <ImageView
         android:id="@+id/empty_cart_image"
         android:layout_width="120dp"
@@ -46,9 +46,9 @@
         app:layout_constraintTop_toBottomOf="@id/empty_cart_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" /> <!-- Correct margin -->
+        android:layout_marginTop="16dp" />
 
-    <!-- Explore Categories Button -->
+
     <Button
         android:id="@+id/explore_categories_button"
         android:layout_width="wrap_content"

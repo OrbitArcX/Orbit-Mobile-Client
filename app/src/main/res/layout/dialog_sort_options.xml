@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,27 +14,23 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"/>
 
-    <!-- RadioGroup for sorting options -->
     <RadioGroup
         android:id="@+id/sort_options_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <!-- Sort by rating -->
     <RadioButton
         android:id="@+id/sort_by_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ratings"/>
 
-    <!-- Sort by lowest to highest price -->
     <RadioButton
         android:id="@+id/sort_low_high"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lowest - Highest Price"/>
 
-    <!-- Sort by highest to lowest price -->
     <RadioButton
         android:id="@+id/sort_high_low"
         android:layout_width="wrap_content"

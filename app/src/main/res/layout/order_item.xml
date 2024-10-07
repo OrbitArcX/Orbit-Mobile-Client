@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="12dp">
 
-    <!-- Order Number -->
     <TextView
         android:id="@+id/order_number"
         android:layout_width="0dp"
@@ -18,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Number of Items -->
     <TextView
         android:id="@+id/order_items"
         android:layout_width="0dp"
@@ -28,7 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Order Status -->
     <TextView
         android:id="@+id/order_status"
         android:layout_width="0dp"

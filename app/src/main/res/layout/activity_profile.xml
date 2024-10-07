@@ -9,7 +9,7 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <!-- Placeholder Profile Image -->
+
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="100dp"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- User Name -->
+
     <TextView
         android:id="@+id/profile_name"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- User Email -->
+
     <TextView
         android:id="@+id/profile_email"
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Update Name Button Layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/update_name_container"
         android:layout_width="0dp"
@@ -80,7 +80,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Deactivate Account Button Layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deactivate_account_container"
         android:layout_width="0dp"
@@ -115,7 +115,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Sign Out Button Layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sign_out_container"
         android:layout_width="0dp"

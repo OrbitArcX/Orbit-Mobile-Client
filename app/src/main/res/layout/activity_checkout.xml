@@ -45,8 +45,6 @@
         app:layout_constraintWidth_percent="0.9"
         android:layout_marginTop="8dp"/>
 
-    <!-- Order Summary Section -->
-
     <TextView
         android:id="@+id/subtotal"
         android:layout_width="wrap_content"
@@ -78,7 +76,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Place Order Button -->
     <Button
         android:id="@+id/place_order_button"
         android:layout_width="0dp"
