@@ -13,6 +13,7 @@ import com.example.orbitmobile.api.OrderApi;
 import com.example.orbitmobile.models.Order;
 import com.example.orbitmobile.models.LoginSuccessResponse;
 import com.example.orbitmobile.network.ApiClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import java.util.List;
 import retrofit2.Call;
@@ -35,6 +36,28 @@ public class OrdersActivity extends AppCompatActivity {
 
         // Load orders from API
         loadOrders();
+
+        // Bottom Navigation setup
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_orders);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    // Already in HomeActivity
+                    startActivity(new Intent(OrdersActivity.this, HomeActivity.class));
+                    return true;
+                case R.id.nav_search:
+                    startActivity(new Intent(OrdersActivity.this, SearchActivity.class));
+                    return true;
+                case R.id.nav_orders:
+                    return true;
+                case R.id.nav_profile:
+                    startActivity(new Intent(OrdersActivity.this, ProfileActivity.class));
+                    return true;
+                default:
+                    return false;
+            }
+        });
     }
 
     private void loadOrders() {

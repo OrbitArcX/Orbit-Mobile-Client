@@ -1,6 +1,7 @@
 package com.example.orbitmobile;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class OrderItemsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewOrderItems;
     private List<OrderItem> orderItems;
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,10 @@ public class OrderItemsActivity extends AppCompatActivity {
 
         recyclerViewOrderItems = findViewById(R.id.recycler_view_order_items);
         recyclerViewOrderItems.setLayoutManager(new LinearLayoutManager(this));
+
+        backButton = findViewById(R.id.back_button);
+        // Back button listener
+        backButton.setOnClickListener(v -> finish());
 
         // Retrieve the order items from the intent
         String orderItemsJson = getIntent().getStringExtra("orderItems");

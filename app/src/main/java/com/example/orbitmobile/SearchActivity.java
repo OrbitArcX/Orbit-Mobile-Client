@@ -35,9 +35,9 @@ public class SearchActivity extends AppCompatActivity implements SortOptionsDial
     private Button sortButton;
     private ProductAdapter productAdapter;
     private String currentQuery = "";        // To hold current search query
-    private String currentCategoryId = null; // To hold current category id
-    private String currentSortBy = "";       // To hold current sorting option
-    private boolean isAscending = true;      // Sorting order
+    private String currentCategoryId = null;
+    private String currentSortBy = "";
+    private boolean isAscending = true;      //to keep the Sorting order
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,7 @@ public class SearchActivity extends AppCompatActivity implements SortOptionsDial
         // Set up bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Highlight the Search tab when in SearchActivity
-        bottomNavigationView.setSelectedItemId(R.id.nav_search);  // Add this line
+        bottomNavigationView.setSelectedItemId(R.id.nav_search);  // this line is to highlight the search icon
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {

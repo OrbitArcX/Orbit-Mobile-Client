@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8E6CEF"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
 
@@ -14,10 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="#8E6CEF"
         android:fontFamily="sans-serif-black"
         android:text="@string/get_started"
-        android:textColor="#8E6CEF"
+        android:textColor="#FFFFFF"
         android:textColorHint="#8E6CEF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,11 +26,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="296dp"
-        android:layout_height="93dp"
+        android:layout_width="356dp"
+        android:layout_height="374dp"
         app:layout_constraintBottom_toTopOf="@+id/get_started_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/orbit" />
+        app:srcCompat="@drawable/orbit_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -162,7 +162,7 @@
                 android:layout_weight="1"
                 android:text="Delivered"
                 android:textSize="16sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/black" />
 
             <ImageView
                 android:id="@+id/order_delivered_icon"
