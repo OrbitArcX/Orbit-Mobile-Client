@@ -6,13 +6,13 @@ public class OrderRequest {
 
     private LoginSuccessResponse customer;  // customer obj
     private List<CartItem> cartItems;
-    private double totalPrice;
+    private double cartPrice;
     private String address;
 
-    public OrderRequest(LoginSuccessResponse customer, List<CartItem> cartItems, double totalPrice, String address) {
+    public OrderRequest(LoginSuccessResponse customer, List<CartItem> cartItems, double cartPrice, String address) {
         this.customer = customer;
         this.cartItems = cartItems;
-        this.totalPrice = totalPrice;
+        this.cartPrice = cartPrice;
         this.address = address;
     }
 
@@ -32,12 +32,12 @@ public class OrderRequest {
         this.cartItems = cartItems;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public double getCartPrice() {
+        return cartPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setCartPrice(double cartPrice) {
+        this.cartPrice = cartPrice;
     }
 
     public String getAddress() {

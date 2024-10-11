@@ -2,6 +2,7 @@ package com.example.orbitmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,6 +82,9 @@ public class CheckoutActivity extends AppCompatActivity {
     private void placeOrder(String shippingAddress) {
         OrderApi orderApi = ApiClient.getRetrofitInstance().create(OrderApi.class);
         OrderRequest orderRequest = new OrderRequest(customer, cart.getCartItems(), totalAmount, shippingAddress);
+
+        Log.d("totPrice","tot "+orderRequest.getCartPrice());
+
         orderApi.createOrder(orderRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
