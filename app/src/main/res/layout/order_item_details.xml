@@ -60,4 +60,15 @@
         app:layout_constraintTop_toBottomOf="@id/product_total_price"
         app:layout_constraintStart_toStartOf="@id/product_name" />
 
+    <Button
+        android:id="@+id/rate_vendor_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Rate Vendor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="@id/product_quantity"
+        app:layout_constraintTop_toBottomOf="@id/product_quantity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.orbitmobile.OrderItemsActivity;
 import com.example.orbitmobile.R;
 import com.example.orbitmobile.models.OrderItem;
 
 import java.util.List;
 
-//Reference : https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.OrderItemViewHolder> {
 
     private List<OrderItem> orderItems;
@@ -45,6 +46,14 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
 
         // Load product image using Glide
         Glide.with(context).load(orderItem.getProduct().getImageUrl()).into(holder.productImage);
+
+        // Set click listener for the Rate Vendor button
+        holder.rateVendorButton.setOnClickListener(v -> {
+            if (context instanceof OrderItemsActivity) {
+                // Call showRatingPopup in OrderItemsActivity, passing the vendor object instead of only the vendor ID
+                ((OrderItemsActivity) context).showRatingPopup(orderItem.getProduct().getVendor());
+            }
+        });
     }
 
     @Override
@@ -55,6 +64,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
     public static class OrderItemViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName, productPrice, productTotalPrice, quantityText;
+        Button rateVendorButton;
 
         public OrderItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +73,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
             productPrice = itemView.findViewById(R.id.product_price);
             productTotalPrice = itemView.findViewById(R.id.product_total_price);
             quantityText = itemView.findViewById(R.id.product_quantity);
+            rateVendorButton = itemView.findViewById(R.id.rate_vendor_button); // Ensure this button exists in your layout
         }
     }
 }

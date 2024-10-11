@@ -66,8 +66,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // profile button
-        findViewById(R.id.profile_picture).setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+        findViewById(R.id.notification_picture).setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
         });
 
         // Bottom Navigation
