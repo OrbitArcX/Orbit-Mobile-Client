@@ -39,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.productName.setText(product.getName());
-        holder.productPrice.setText("$" + product.getPrice());
+        holder.productPrice.setText("Rs." + product.getPrice());
         Glide.with(context).load(product.getImageUrl()).into(holder.productImage);  // Use Glide to load images
 
         // Set onClickListener to navigate to ProductDetailsActivity
