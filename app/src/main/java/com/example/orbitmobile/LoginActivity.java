@@ -75,13 +75,13 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    // Handle 404 (Not Found) and 400 (Bad Request) errors
-                    if (response.code() == 404) {
-                        errorMessage.setText("User not found. Please check your email.");
-                    } else if (response.code() == 400) {
-                        errorMessage.setText("Incorrect password or account not approved.");
-                    } else {
-                        errorMessage.setText("Login failed. Please try again.");
+                    try {
+                        // Extract the error message from the response body
+                        String errorResponse = response.errorBody().string();  // Get the error body as a string
+                        errorMessage.setText(errorResponse);  // Set the error message in the TextView
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        errorMessage.setText("An error occurred. Please try again.");  // Default error message in case of an issue with parsing
                     }
                     errorMessage.setVisibility(View.VISIBLE);
                 }
