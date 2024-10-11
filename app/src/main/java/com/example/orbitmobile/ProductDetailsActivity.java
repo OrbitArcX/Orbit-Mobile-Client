@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class ProductDetailsActivity extends AppCompatActivity {
 
     private ImageView productImage;
-    private TextView productName, productPrice, productDescription, vendorName, vendorReviews, quantityText;
+    private TextView productName, productPrice, productDescription, vendorName, vendorReviews, quantityText, VendorRating;
     private ImageButton increaseQuantityButton, decreaseQuantityButton;
     private Button addToCartButton;
     private int quantity = 1;
@@ -57,6 +57,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         decreaseQuantityButton = findViewById(R.id.decrease_quantity);
         addToCartButton = findViewById(R.id.add_to_cart_button);
         backButton = findViewById(R.id.back_button);
+        VendorRating = findViewById(R.id.vendor_rating);
 
         // Back button listener
         backButton.setOnClickListener(v -> finish());
@@ -75,6 +76,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Set vendor
         vendorName.setText(product.getVendor().getName());
         vendorReviews.setText(product.getVendor().getEmail());
+        //VendorRating.setText(product.getVendor().getRating()+"/5");
 
         // Set quantity adjustment functionality
         quantityText.setText(String.valueOf(quantity));
